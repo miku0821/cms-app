@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -88,5 +90,43 @@ class PostController extends Controller
         return back();
     }
 
+    public function searchByContent(Request $request)
+    {
+        $validated = $request->validate([
+            'searched_txt' => 'required',
+        ]);
 
+        $searched_txt = $request->searched_txt;
+
+        $posts = Post::where('title', 'like', "%".$searched_txt."%")
+        ->orWhere('content', 'like', "%".$searched_txt."%")
+        ->paginate(5);
+
+        $categories = Category::all();
+
+        return view('home', ['posts' => $posts, 'categories' => $categories]);
+    }
+
+
+    public function searchByAuthor($name, Request $request){
+        $validated = $request->validate([
+            'searched_txt' => 'required',
+        ]);
+
+        $author = $request->searched_txt;
+
+        $user_ids = User::where('name', 'like', "%".$author."%")->get('id');
+
+        if(count($user_ids) > 1){
+                $posts = Post::whereIn('user_id', $user_ids)
+                        ->paginate(5);
+        }else{
+            $posts = Post::where('user_id', $user->id)
+            ->paginate(5);
+        }
+      
+        $categories = Category::all();
+
+        return view('home', ['posts' => $posts, 'categories' => $categories]);
+    }
 }

@@ -5,6 +5,8 @@
 
     // posts route
     Route::get('/post/{post}', [PostController::class, 'show'])->name('post');
+    Route::post('/post/search', [PostController::class, 'searchByContent'])->name('posts.search');
+    Route::post('/post/author/search', [PostController::class, 'searchByAuthor'])->name('posts.author.search');
 
     Route::middleware(['auth'])->group(function(){
         Route::get('/posts', [PostController::class, 'index'])->name('posts.index');

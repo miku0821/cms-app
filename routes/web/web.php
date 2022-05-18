@@ -20,6 +20,8 @@ use App\Http\Controllers\UserController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('/{author}/search', [HomeController::class, 'findByAuthor'])->name('home.author');
+
 
 Route::middleware('auth')->group(function(){
     Route::get('/admin', [AdminController::class, 'index'])->name('admin.index');

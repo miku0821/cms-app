@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Category;
 
 class HomeController extends Controller
@@ -26,6 +27,15 @@ class HomeController extends Controller
     public function index()
     {
         $posts = Post::paginate(5);
+        $categories = Category::all();
+
+        return view('home', ['posts' => $posts, 'categories' => $categories]);
+    }
+
+    public function findByAuthor($author)
+    {
+        $posts = Post::where('user_id', $author)
+            ->paginate(5);
         $categories = Category::all();
 
         return view('home', ['posts' => $posts, 'categories' => $categories]);

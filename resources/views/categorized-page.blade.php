@@ -22,6 +22,11 @@
             <div class="card-footer text-muted">
             Posted on {{$post->created_at->diffForHumans()}} by
             <a href="#">{{$post->user->name}}</a>
+            <div class="category float-right">
+                @foreach($post->categories as $category)
+                    <span class="bg-info text-light p-2 rounded">{{$category->name}}</span>
+                @endforeach
+            </div>
             </div>
         </div>
         @endforeach

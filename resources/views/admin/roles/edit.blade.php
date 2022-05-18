@@ -18,7 +18,7 @@
             </form>            
         </div>
     </div>
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-lg-12">
             @if ($permissions->isNotEmpty())
             <div class="card shadow mb-4">

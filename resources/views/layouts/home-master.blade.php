@@ -47,9 +47,9 @@
   <!-- /.container -->
 
   <!-- Footer -->
-  <footer class="py-5 bg-dark">
+  <footer class="py-5 bg-dark @if(isset($posts) && (!count($posts) > 0)) fixed-bottom @endif">
     <div class="container">
-      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>
+      <p class="m-0 text-center text-white">Copyright &copy;  Website 2022</p>
     </div>
     <!-- /.container -->
   </footer>

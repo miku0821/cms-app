@@ -6,14 +6,16 @@
     <!-- Author -->
     <p class="lead">
       by
-      <a href="#">{{$post->user->name}}</a>
+      <a href="{{ route('home.author', ['author' => $post->user]); }}">{{$post->user->name}}</a>
     </p>
 
     <hr>
 
     <!-- Date/Time -->
     <p>Posted on {{$post->created_at->diffForHumans()}}</p>
-
+    @foreach($post->categories as $category)
+      <span class="bg-info text-light p-2 rounded">{{$category->name}}</span>
+    @endforeach
     <hr>
 
     <!-- Preview Image -->
