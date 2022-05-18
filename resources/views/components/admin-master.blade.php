@@ -58,7 +58,7 @@
       <!-- Nav Item - Posts Collapse Menu -->
       <x-admin.sidebar.admin-sidebar-post-links></x-admin.sidebar.admin-sidebar-post-links>
 
-      @if (auth()->user()->userHasRole('Admin'))
+      {{-- @if (auth()->user()->userHasRole('Admin')) --}}
         
       <!-- Nav Item - Users Collapse Menu -->
       <x-admin.sidebar.admin-sidebar-user-links></x-admin.sidebar.admin-sidebar-user-links>
@@ -68,7 +68,7 @@
       
       <!-- Nav Item - Authorization Collapse Menu -->
       <x-admin.sidebar.authorization-links></x-admin.sidebar.authorization-links>
-      @endif
+      {{-- @endif --}}
 
       
 
