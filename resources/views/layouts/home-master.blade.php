@@ -11,7 +11,7 @@
   <title>Blog Home</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ mix('css/app.css') }}" rel="stylesheet">
   <link href="{{asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
