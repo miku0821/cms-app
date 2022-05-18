@@ -16,9 +16,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()
-            ->count(5)
-            ->has(Post::factory()->count(2)->has(Comment::factory()->count(2)))
-            ->create();
+        $this->call([
+            UserSeeder::class,
+            RoleSeeder::class]);
     }
 }
