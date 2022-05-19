@@ -10,7 +10,7 @@
 
          
                     <div class="mb-3">
-                        <img class="img-profile rounded-circle" src="@if (auth()->user()->avatar == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else $data:image/png;base64,{{auth()->user()->avatar}} @endif" alt="" width="60" height="60">
+                        <img class="img-profile rounded-circle" src="@if ($user->avatar == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else data:image/png;base64,{{auth()->user()->avatar}} @endif" alt="" width="60" height="60">
                     </div>
                     <div class="form-group">
                         <label for="avatar">Profile Image</label><br>
