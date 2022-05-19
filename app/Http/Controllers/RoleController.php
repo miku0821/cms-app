@@ -42,7 +42,7 @@ class RoleController extends Controller
         }
 
             $request->validate([
-                'role_name' => ['required', new UniqueRole],
+                'role_name' => ['required'],
             ]);
     
             $role->update([
