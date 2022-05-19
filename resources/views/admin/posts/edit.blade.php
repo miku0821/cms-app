@@ -10,7 +10,7 @@
                 <input type="text" name="title" class="form-control" id="title" aria-describedby="" placeholder="Enter title" value="{{$post->title}}">
             </div>
             <div class="form-group">
-                <div><img src="{{$post->post_image}}" width="300" alt=""></div>
+                <div><img src="@if ($post->post_image == NULL) https://img.freepik.com/free-photo/abstract-luxury-plain-blur-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63641.jpg?w=2000 @else data:image/png;base64,{{$post->post_image}} @endif{{$post->post_image ? $post->post_image : null}}" width="300" alt=""></div>
                 <label for="file">File</label>
                 <input type="file" name="post_image" class="form-control-file" id="file" aria-describedby="">
             </div>

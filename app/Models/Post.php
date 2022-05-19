@@ -23,14 +23,14 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function getPostImageAttribute($value){
-        if(strpos($value, 'https://') !== FALSE || strpos($value, 'http://') !== FALSE){
-            return $value;
-        }elseif($value === NULL){
-            return NULL;
-        }
-        return asset('storage/'.$value);
-    }
+    // public function getPostImageAttribute($value){
+    //     if(strpos($value, 'https://') !== FALSE || strpos($value, 'http://') !== FALSE){
+    //         return $value;
+    //     }elseif($value === NULL){
+    //         return NULL;
+    //     }
+    //     return asset('storage/'.$value);
+    // }
 
     public function categories(){
         return $this->belongsToMany(Category::class);

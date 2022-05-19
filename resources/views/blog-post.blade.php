@@ -19,7 +19,7 @@
     <hr>
 
     <!-- Preview Image -->
-    <img class="img-fluid rounded" src="{{$post->post_image ? $post->post_image : null}}" alt="">
+    <img class="img-fluid rounded" src="@if ($user->avatar == NULL) https://img.freepik.com/free-photo/abstract-luxury-plain-blur-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63641.jpg?w=2000 @else data:image/png;base64,{{$user->avatar}} @endif{{$post->post_image ? $post->post_image : null}}" alt="">
     @if($post->post_image)
     <hr>
     @endif

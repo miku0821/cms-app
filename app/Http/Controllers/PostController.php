@@ -42,11 +42,15 @@ class PostController extends Controller
 
         // store an uploaded file to move an uploaded file to one of your disks
         if($request->hasFile('post_image')){
-            $validated['post_image'] = $request->post_image->store('images');
+            $image = base64_encode(file_get_contents($request->post_image->getRealPath()));
         }
 
         // save a relational model instance
-        $post = Auth::user()->posts()->create($validated);
+        $post = Auth::user()->posts()->create([
+            'title' => $request->title,
+            'post_image' => $image,
+            'content' => $request->content,
+        ]);
         $categories = $request->categories;
 
         foreach($categories as $category){
