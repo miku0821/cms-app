@@ -44,7 +44,7 @@ class PostController extends Controller
         // store an uploaded file to move an uploaded file to one of your disks
         if($request->hasFile('post_image')){
             $image = $request->file('post_image');
-            $path = Storage::disk('s3')->putFile('post_image', $image, 'public');
+            $path = Storage::disk('s3')->put('/', $image, 'public');
             $validated['post_image'] = Storage::disk('s3')->url($path);
         }else{
             $validated['post_image'] = NULL;
