@@ -66,19 +66,21 @@ class UserController extends Controller
                     ->withErrors($validator)
                     ->withInput();
         }else{
+            
+            
+            if($request->hasFile('avatar')){
+                $image = base64_encode(file_get_contents($request->avatar->getRealPath()));
+            }else{
+                $image = NULL;
+            }
+
             $user->username = $request->username;
             $user->name = $request->name;
             $user->email = $request->email;
+            $user->avatar = $image;
     
             // //hashing password
             $user->password = Hash::make($request->password);
-    
-    
-            if($request->hasFile('avatar')){
-                $user->avatar = $request->avatar->store('images');
-            }else{
-                $user->avatar = NULL;
-            }
     
             $user->save();
     
