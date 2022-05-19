@@ -43,6 +43,7 @@ class PermissionController extends Controller
             $form = $request->all();
             $validator = Validator::make($form,[
                 'name' => ['required', Rule::unique('permissions')->ignore($permission->id)],
+                'slug' => ['required', Rule::unique('permissions')->ignore($permission->id)],
             ]);
 
             if($validator->fails()){

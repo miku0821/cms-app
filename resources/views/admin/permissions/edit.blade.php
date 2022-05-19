@@ -10,6 +10,7 @@
                     <label for="permission">Name</label>
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{$permission->name}}">
                     <input type="hidden" name="id" value="{{$permission->id}}">
+                    <input type="hidden" name="slug" value="{{$permission->slug}}">
                     @error('name')
                         <div class="invalid-feedback">{{$message}}</div>
                     @enderror
