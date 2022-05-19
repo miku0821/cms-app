@@ -5,7 +5,8 @@
                 {{auth()->user()->username}}
             @endif
         </span>
-        <img class="img-profile rounded-circle" src="data:image/png;base64,{{auth()->user()->avatar}}">
+        <img class="img-profile rounded-circle" 
+        src="@if (auth()->user()->avatar == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else $data:image/png;base64,{{auth()->user()->avatar}} @endif">
     </a>
      <!-- Dropdown - User Information -->
     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
