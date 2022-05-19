@@ -28,7 +28,7 @@ class UserController extends Controller
     public function show(User $user){
 
 
-        return view('admin.users.myProfile', [
+        return view('admin.users.profile', [
             'user'=>$user,
             'roles' => Role::all(),
         ]);
