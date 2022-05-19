@@ -56,9 +56,9 @@
 
  
   <!-- Bootstrap core JavaScript -->
-  <script src="{{secure_asset('vendor/jquery/jquery.min.js')}}"></script>
+  <script src="{{asset('vendor/jquery/jquery.min.js')}}"></script>
   @yield('scripts')
-  <script src="{{secure_asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
 
 </body>

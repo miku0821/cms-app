@@ -19,24 +19,13 @@
     <hr>
 
     <!-- Preview Image -->
-    <img class="img-fluid rounded" src="@if ($user->avatar == NULL) https://img.freepik.com/free-photo/abstract-luxury-plain-blur-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63641.jpg?w=2000 @else data:image/png;base64,{{$user->avatar}} @endif{{$post->post_image ? $post->post_image : null}}" alt="">
+    <img class="img-fluid rounded" src="data:image/png;base64,{{$post->post_image}} " alt="">
     @if($post->post_image)
     <hr>
     @endif
 
     <!-- Post Content -->
     <p class="lead">{{$post->content}}</p>
-
-    <blockquote class="blockquote">
-      <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-      <footer class="blockquote-footer">Someone famous in
-        <cite title="Source Title">Source Title</cite>
-      </footer>
-    </blockquote>
-
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
-
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
     
     <hr class="mt-3">
 
@@ -72,7 +61,7 @@
       @if (count($comments) > 0)
       @foreach ($comments as $comment)
         <div class="media mb-4">
-          <img class="d-flex mr-3 rounded-circle" src="{{$comment->image}}" width="50" height="50" alt="">
+          <img class="d-flex mr-3 rounded-circle" src="@if ($comment->image == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else data:image/png;base64,{{$comment->image}} @endif" width="50" height="50" alt="">
           <div class="media-body">
             <h5 class="mt-0">{{$comment->user->name}}
               <small>{{date('F j, Y, \a\t  g:i A', strtotime($comment->created_at))}}</small>
@@ -107,9 +96,8 @@
               @foreach ($replies as $reply)
                 @if ($reply->is_active === 1)
                   
-                
                 <div class="nested-comment media mt-4" style="border-left: 2px solid rgb(163, 170, 184); padding-left: 10px;">
-                  <img class="d-flex mr-3 rounded-circle" src="{{$reply->image}}" width="50" height="50" alt="">
+                  <img class="d-flex mr-3 rounded-circle" src="@if ($comment->image == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else data:image/png;base64,{{$reply->image}} @endif" width="50" height="50" alt="">
                   <div class="media-body">
                     <h5 class="mt-0">{{$reply->user->name}}
                       <small>{{date('F j, Y, \a\t  g:i A', strtotime($comment->created_at))}}</small>

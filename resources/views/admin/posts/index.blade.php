@@ -7,7 +7,7 @@
         @elseif(session('post-creation-status'))
             <div class="alert alert-success">{{session('post-creation-status')}}</div>
         @elseif(session('post-update-status'))
-            <div class="alert alert-success">{{session('post-udpate-status')}}</div>
+            <div class="alert alert-warning">{{session('post-update-status')}}</div>
         @endif
 
         <div class="card shadow mb-4">
@@ -46,7 +46,7 @@
                                 <td>{{$post->id}}</td>
                                 <td>{{$post->user->name}}</td>
                                 <td> <a href="{{ route('post', ['post' => $post->id]) }}"> {{$post->title}}</a></td>
-                                <td> <img src="{{$post->post_image}}" alt="" width="150"> </td>
+                                <td> <img src="data:image/png;base64,{{$post->post_image}}" alt="" width="150"> </td>
                                 <td>{{$post->created_at->diffForHumans()}}</td>
                                 <td>{{$post->updated_at->diffForHumans()}}</td>
                                 <td><a href="{{route('comments.show', $post->id)}}">View Comments</a></td>

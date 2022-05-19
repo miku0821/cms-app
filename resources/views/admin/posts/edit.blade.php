@@ -10,12 +10,23 @@
                 <input type="text" name="title" class="form-control" id="title" aria-describedby="" placeholder="Enter title" value="{{$post->title}}">
             </div>
             <div class="form-group">
-                <div><img src="@if ($post->post_image == NULL) https://img.freepik.com/free-photo/abstract-luxury-plain-blur-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63641.jpg?w=2000 @else data:image/png;base64,{{$post->post_image}} @endif{{$post->post_image ? $post->post_image : null}}" width="300" alt=""></div>
-                <label for="file">File</label>
-                <input type="file" name="post_image" class="form-control-file" id="file" aria-describedby="">
+                <div><img src="data:image/png;base64,{{$post->post_image}}" width="300" alt=""></div>
+                <label for="inputFile">File</label>
+                <div class="custom-file">
+                  <input type="file" name="post_image" class="custom-file-input" id="file">
+                  <label class="custom-file-label" for="file">Choose file</label>
+                </div>
             </div>
             <label for="content">Content</label><br>
             <textarea name="content" class="form-control"  id="content" cols="30" rows="10">{{$post->content}}</textarea><br>
+            <div class="form-group">
+                @foreach ($categories as $category)
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" name="categories[]" class="form-check-input" id="inlineCheckbox{{$category->id}}" value="{{$category->id}}">
+                    <label class="form-check-label" for="inlineCheckbox{{$category->id}}">{{$category->name}}</label>
+                </div>
+                @endforeach
+            </div>
             <button type="submit" class="btn btn-primary mt-3">Edit</button>
         </form>
     @endsection

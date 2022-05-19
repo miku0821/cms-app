@@ -76,6 +76,8 @@ class UserController extends Controller
     
             if($request->hasFile('avatar')){
                 $user->avatar = $request->avatar->store('images');
+            }else{
+                $user->avatar = NULL;
             }
     
             $user->save();

@@ -43,6 +43,8 @@ class PostController extends Controller
         // store an uploaded file to move an uploaded file to one of your disks
         if($request->hasFile('post_image')){
             $image = base64_encode(file_get_contents($request->post_image->getRealPath()));
+        }else{
+            $image = NULL;
         }
 
         // save a relational model instance
@@ -51,11 +53,14 @@ class PostController extends Controller
             'post_image' => $image,
             'content' => $request->content,
         ]);
-        $categories = $request->categories;
 
-        foreach($categories as $category){
-            $post->categories()->attach($category);
+
+        if($categories = $request->categories){
+            foreach($categories as $category){
+                $post->categories()->attach($category);
+            }
         }
+
 
         $request->session()->flash('post-creation-status', 'The post was successfully created');
         return redirect()->route('posts.index');
@@ -64,7 +69,8 @@ class PostController extends Controller
 
     public function edit(Post $post){
         $this->authorize('view', $post);
-        return view('admin.posts.edit', ['post' => $post]);
+        $categories = Category::all();
+        return view('admin.posts.edit', ['post' => $post, 'categories' => $categories]);
     }
 
 
@@ -75,13 +81,28 @@ class PostController extends Controller
             'post_image' => 'file',
             'content' => 'required'
         ]);
-
+        
         if($request->hasFile('post_image')){
-            $validated['post_image'] = $request->post_image->store('images');
+            $image = base64_encode(file_get_contents($request->post_image->getRealPath()));
+        }else{
+            $image = NULL;
         }
 
-        Post::where('id',$post->id)->update($validated);
-        $request->session()->flash('post-udpate-status', 'The post waws successfully updated');
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->post_image = $image;
+
+
+        $post->save();
+
+        if($categories = $request->categories){
+            foreach($categories as $category){
+                $post->categories()->attach($category);
+            }
+        }
+
+
+        $request->session()->flash('post-update-status', 'The post waws successfully updated');
         return redirect()->route('posts.index');
     }
 
@@ -112,7 +133,7 @@ class PostController extends Controller
     }
 
 
-    public function searchByAuthor($name, Request $request){
+    public function searchByAuthor(Request $request){
         $validated = $request->validate([
             'searched_txt' => 'required',
         ]);
@@ -121,11 +142,11 @@ class PostController extends Controller
 
         $user_ids = User::where('name', 'like', "%".$author."%")->get('id');
 
-        if(count($user_ids) > 1){
+        if(count($user_ids) >= 1){
                 $posts = Post::whereIn('user_id', $user_ids)
                         ->paginate(5);
         }else{
-            $posts = Post::where('user_id', $user->id)
+            $posts = Post::where('user_id', $user_ids)
             ->paginate(5);
         }
       

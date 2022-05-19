@@ -10,7 +10,7 @@
         @if (count($posts) > 0)
         @foreach ($posts as $post)
                 <div class="card mb-4">
-                    <img class="card-img-top" src="@if ($post->post_image == NULL) https://img.freepik.com/free-photo/abstract-luxury-plain-blur-grey-black-gradient-used-as-background-studio-wall-display-your-products_1258-63641.jpg?w=2000 @else data:image/png;base64,{{$post->post_image}} @endif{{$post->post_image ? $post->post_image : null}}" alt="">
+                    <img class="card-img-top" src="data:image/png;base64,{{$post->post_image}}" alt="">
                     <div class="card-body">
                     <h2 class="card-title">{{$post->title}}</h2>
                     <p class="card-text">{{Str::limit($post->content, 40)}}</p>

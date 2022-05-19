@@ -7,10 +7,19 @@
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" name="title" class="form-control" id="title" aria-describedby="" placeholder="Enter title">
+                @error('title')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
             </div>
             <div class="form-group">
-                <label for="file">File</label>
-                <input type="file" name="post_image" class="form-control-file" id="file" aria-describedby="">
+                <label for="inputFile">File</label>
+                <div class="custom-file">
+                    <input type="file" name="post_image" class="custom-file-input" id="file">
+                    <label class="custom-file-label" for="file">Choose file</label>
+                  </div>
+                @error('post_image')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
             </div>
             <label for="content">Content</label><br>
             <textarea name="content" class="form-control"  id="content" cols="30" rows="10" placeholder="Write whatever you like"></textarea><br>
