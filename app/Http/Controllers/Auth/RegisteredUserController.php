@@ -47,6 +47,8 @@ class RegisteredUserController extends Controller
 
             // $request->avatar = $request->file('avatar')->storeAs('images', $name);
             $image = base64_encode(file_get_contents($request->avatar->getRealPath()));
+        }else{
+            $image = NULL;
         }
 
         $user = User::create([
