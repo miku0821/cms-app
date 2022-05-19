@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\Permission;
 use Illuminate\Support\Str;
-use App\Rules\UniqueRole;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class RoleController extends Controller
 {
@@ -41,15 +42,22 @@ class RoleController extends Controller
             return redirect()->route('roles.index');
         }
 
-            $request->validate([
-                'role_name' => ['required'],
-            ]);
-    
-            $role->update([
-                'name' => Str::ucfirst($request->role_name),
-                'slug' => Str::slug(Str::lower($request->role_name), "-"),
+            $form = $request->all();
+            $validator = Validator::make($form,[
+                'name' => ['required', Rule::unique('roles')->ignore($role->id)],
             ]);
 
+            if($validator->fails()){
+                return redirect()->route('roles.index')
+                ->withErrors($validator)
+                ->withInput();
+            }else{
+                $role->update([
+                    'name' => Str::ucfirst($request->role_name),
+                    'slug' => Str::slug(Str::lower($request->role_name), "-"),
+                ]);
+            }
+    
             session()->flash('update_status', "The role \" $role->name \" was successfully updated");
 
         return redirect()->route('roles.index');
