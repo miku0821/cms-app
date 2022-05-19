@@ -53,7 +53,7 @@ class PermissionController extends Controller
             }else{
                 $permission->update([
                     'name' => Str::ucfirst($request->name),
-                    'slug' => Str::slug(Str::lower($request->name), "-"),
+                    'slug' => Str::slug(Str::lower($request->slug), "-"),
                 ]);
             }
 

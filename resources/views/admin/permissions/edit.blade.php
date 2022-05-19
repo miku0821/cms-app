@@ -14,6 +14,9 @@
                     @error('name')
                         <div class="invalid-feedback">{{$message}}</div>
                     @enderror
+                    @error('slug')
+                    <div class="invalid-feedback">{{$message}}</div>
+                @enderror
                 </div>
                 <button type="submit" class="btn btn-warning">Edit</button>
                 </form>
