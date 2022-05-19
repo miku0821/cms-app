@@ -10,6 +10,7 @@ use App\Rules\UniqueUsername;
 use App\Rules\UniqueEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 
 class UserController extends Controller
@@ -27,7 +28,7 @@ class UserController extends Controller
     public function show(User $user){
 
 
-        return view('admin.users.profile', [
+        return view('admin.users.myProfile', [
             'user'=>$user,
             'roles' => Role::all(),
         ]);
@@ -35,26 +36,53 @@ class UserController extends Controller
 
     public function update(User $user, Request $request){
 
-        $validated = $request->validate([
-            'username' => ['required', 'string', 'max:255', 'alpha_dash', new UniqueUsername],
+        // $validated = $request->validate([
+        //     'username' => ['required', 'string', 'max:255', 'alpha_dash', ],
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'email', 'max:255'],
+        //     'password' => ['required','min:6', 'confirmed'],
+        //     'password_confirmation' => ['required', 'min:6'],
+        //     'avatar' => ['file'],
+        // ]);
+
+        $form = $request->all();
+        $validator = Validator::make($form, [
+            'username' => [
+                'required',
+                'string',
+                'max:255',
+                'alpha_dash',
+                Rule::unique('users')->ignore($user->id),
+            ],
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', new UniqueEmail],
+            'email' => ['required', 'email', 'max:255'],
             'password' => ['required','min:6', 'confirmed'],
             'password_confirmation' => ['required', 'min:6'],
             'avatar' => ['file'],
         ]);
 
-        // //hashing password
-        $validated['password'] = Hash::make($request->password);
-
-
-        if($request->hasFile('avatar')){
-            $validated['avatar'] = $request->avatar->store('images');
+        if($validator->fails()){
+            return redirect()->route('user.profile.show', ['user'=>$user])
+                    ->withErrors($validator)
+                    ->withInput();
+        }else{
+            $user->username = $request->username;
+            $user->name = $request->name;
+            $user->email = $request->email;
+    
+            // //hashing password
+            $user->password = Hash::make($request->password);
+    
+    
+            if($request->hasFile('avatar')){
+                $user->avatar = $request->avatar->store('images');
+            }
+    
+            $user->save();
+    
+            return back();
         }
 
-        $user->update($validated);
-
-        return back();
     }
 
     public function attach(Request $request, User $user){
