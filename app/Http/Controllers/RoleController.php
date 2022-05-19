@@ -44,7 +44,7 @@ class RoleController extends Controller
 
             $form = $request->all();
             $validator = Validator::make($form,[
-                'name' => ['required', Rule::unique('roles')->ignore($role->id)],
+                'role_name' => ['required', Rule::unique('roles')->ignore($role->id)],
             ]);
 
             if($validator->fails()){
