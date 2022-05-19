@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -75,16 +78,26 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        $request->validate([
-            'name' => 'required: unique:App\Models\Category,name',
+
+        if($category->name === Str::slug(Str::lower($request->name), "-") && $category->id == $request->id){
+            session()->flash('update_status', "No changes has made to the category name");
+            return redirect()->route('categories.index');
+        }
+
+        $form = $request->all();
+        $validator = Validator::make($form,[
+            'name' => ['required', Rule::unique('categories')->ignore($category->id)],
         ]);
 
-        $category = Category::findOrFail($id);
-
-
-        $category->update($request->all());
+        if($validator->fails()){
+            return redirect()->route('categories.edit', ['category' => $category])
+            ->withErrors($validator)
+            ->withInput();
+        }else{
+            $category->update($request->all());
+        }
 
         if($category->wasChanged()){
             session()->flash('update_status', "The category '$category->name' was successfully updated");

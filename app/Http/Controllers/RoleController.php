@@ -37,7 +37,7 @@ class RoleController extends Controller
     }
 
     public function update(Request $request, Role $role){
-        if($role->slug === Str::slug(Str::lower($request->role_name), "-") && $role->id == $request->id){
+        if($role->slug === Str::slug(Str::lower($request->name), "-") && $role->id == $request->id){
             session()->flash('update_status', "No changes has made to the role name");
             return redirect()->route('roles.index');
         }
@@ -48,13 +48,13 @@ class RoleController extends Controller
             ]);
 
             if($validator->fails()){
-                return redirect()->route('roles.index')
+                return redirect()->route('roles.edit', ['role' => $role])
                 ->withErrors($validator)
                 ->withInput();
             }else{
                 $role->update([
-                    'name' => Str::ucfirst($request->role_name),
-                    'slug' => Str::slug(Str::lower($request->role_name), "-"),
+                    'name' => Str::ucfirst($request->name),
+                    'slug' => Str::slug(Str::lower($request->name), "-"),
                 ]);
             }
     

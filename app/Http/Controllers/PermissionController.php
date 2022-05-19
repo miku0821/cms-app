@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Permission;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class PermissionController extends Controller
 {
@@ -33,19 +35,27 @@ class PermissionController extends Controller
     }
 
     public function update(Request $request, Permission $permission){
-        if($permission->id == $request->id && $permission->slug === Str::slug(Str::lower($request->permission_name))){
+        if($permission->id == $request->id && $permission->slug === Str::slug(Str::lower($request->name))){
             session()->flash('edit-status', "No changes has made to the permission name");
             return redirect()->route('permissions.index');
         }else{
 
-        $request->validate([
-            'permission_name' => 'required',
-        ]);
+            $form = $request->all();
+            $validator = Validator::make($form,[
+                'name' => ['required', Rule::unique('permissions')->ignore($permission->id)],
+            ]);
 
-        $permission->update([
-            'name' => Str::ucfirst($request->permission_name),
-            'slug' => Str::slug(Str::lower($request->permission_name))
-        ]);
+            if($validator->fails()){
+                return redirect()->route('permissions.edit', ['permission' => $permission])
+                ->withErrors($validator)
+                ->withInput();
+            }else{
+                $permission->update([
+                    'name' => Str::ucfirst($request->name),
+                    'slug' => Str::slug(Str::lower($request->name), "-"),
+                ]);
+            }
+
 
         session()->flash('edit-status', "The permission : $permission->name was successfully edited");
 

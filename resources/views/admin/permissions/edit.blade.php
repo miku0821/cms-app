@@ -7,10 +7,13 @@
                 @csrf
                 @method('PUT')
                 <div class="form-group">
-                <label for="permission"></label>
-                <input type="text" name="permission_name" class="form-control"value="{{$permission->name}}">
+                    <label for="permission">Name</label>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{$permission->name}}">
+                    <input type="hidden" name="id" value="{{$permission->id}}">
+                    @error('name')
+                        <div class="invalid-feedback">{{$message}}</div>
+                    @enderror
                 </div>
-                <input type="hidden" name="id" value="{{$permission->id}}">
                 <button type="submit" class="btn btn-warning">Edit</button>
                 </form>
             </div>

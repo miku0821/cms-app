@@ -7,10 +7,10 @@
             @csrf
             @method('PUT')
                 <div class="form-group">
-                    <label for="role_name">Name</label>
-                    <input type="text" name="role_name" class="form-control @error('role_name') is-invalid @enderror" id="role_name" value="{{$role->name}}">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" value="{{$role->name}}">
                     <input type="hidden" name="id" value="{{$role->id}}">
-                    @error('role_name')
+                    @error('name')
                         <div class="invalid-feedback">{{$message}}</div>
                     @enderror
                 </div>
