@@ -35,7 +35,7 @@ class PermissionController extends Controller
     }
 
     public function update(Request $request, Permission $permission){
-        if($permission->id == $request->id && $permission->slug === Str::slug(Str::lower($request->name))){
+        if($permission->id == $request->id && $permission->name === Str::slug(Str::lower($request->name))){
             session()->flash('edit-status', "No changes has made to the permission name");
             return redirect()->route('permissions.index');
         }else{
