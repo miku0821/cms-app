@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostController extends Controller
@@ -35,22 +36,24 @@ class PostController extends Controller
 
         // validation
         $validated = $request->validate([
-            'title' => 'required|min:8|max:255',
+            'title' => 'required|max:255',
             'post_image' => 'file',
             'content' => 'required'
         ]);
 
         // store an uploaded file to move an uploaded file to one of your disks
         if($request->hasFile('post_image')){
-            $image = base64_encode(file_get_contents($request->post_image->getRealPath()));
+            $image = $request->file('post_image');
+            $path = Storage::disk('s3')->putFile('post_image', $image, 'public');
+            $validated['post_image'] = Storage::disk('s3')->url($path);
         }else{
-            $image = NULL;
+            $validated['post_image'] = NULL;
         }
 
         // save a relational model instance
         $post = Auth::user()->posts()->create([
             'title' => $request->title,
-            'post_image' => $image,
+            'post_image' => $validated['post_image'],
             'content' => $request->content,
         ]);
 
@@ -83,14 +86,16 @@ class PostController extends Controller
         ]);
         
         if($request->hasFile('post_image')){
-            $image = base64_encode(file_get_contents($request->post_image->getRealPath()));
+            $image = $request->file('post_image');
+            $path = Storage::disk('s3')->putFile('post_image', $image, 'public');
+            $validated['post_image'] = Storage::disk('s3')->url($path);
         }else{
-            $image = NULL;
+            $validated['post_image'] = NULL;
         }
 
         $post->title = $request->title;
         $post->content = $request->content;
-        $post->post_image = $image;
+        $post->post_image = $validated['post_image'];
 
 
         $post->save();

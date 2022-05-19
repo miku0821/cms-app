@@ -11,6 +11,7 @@ use App\Rules\UniqueEmail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 
 class UserController extends Controller
@@ -69,15 +70,17 @@ class UserController extends Controller
             
             
             if($request->hasFile('avatar')){
-                $image = base64_encode(file_get_contents($request->avatar->getRealPath()));
+                $image = $request->file('avatar');
+                $path = Storage::disk('s3')->putFile('avatar', $image, 'public');
+                $validated['avatar'] = Storage::disk('s3')->url($path);
             }else{
-                $image = NULL;
+                $validated['avatar'] = NULL;
             }
 
             $user->username = $request->username;
             $user->name = $request->name;
             $user->email = $request->email;
-            $user->avatar = $image;
+            $user->avatar = $validated['avatar'];
     
             // //hashing password
             $user->password = Hash::make($request->password);

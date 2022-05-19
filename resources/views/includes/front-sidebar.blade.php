@@ -41,7 +41,7 @@
 
               @foreach ($categories as $category)
               <li>
-                <a href="{{ route('category.sort', ['category' => $category]) }}">{{$category->name}}</a>
+                <a href="{{ route('category.sort', ['category' => $category]) }}" style="font-size: 18px;">★{{$category->name}}</a>
               </li>
               @endforeach
 

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Storage;
 
 class RegisteredUserController extends Controller
 {
@@ -46,13 +47,15 @@ class RegisteredUserController extends Controller
             // $name = $file->getClientOriginalName();
 
             // $request->avatar = $request->file('avatar')->storeAs('images', $name);
-            $image = base64_encode(file_get_contents($request->avatar->getRealPath()));
+            $image = $request->file('avatar');
+            $path = Storage::disk('s3')->putFile('avatar', $image, 'public');
+            $validated['avatar'] = Storage::disk('s3')->url($path);
         }else{
-            $image = NULL;
+            $validated['avatar'] = NULL;
         }
 
         $user = User::create([
-            'avatar' => $image,
+            'avatar' => $validated['avatar'],
             'username' => $request->username,
             'name' => $request->name,
             'email' => $request->email,

@@ -9,7 +9,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>CMS application</title>
+  <title>SkyBlog</title>
 
   <!-- Custom fonts for this template-->
   <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -34,7 +34,7 @@
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fa-solid fa-camera-retro"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">CMS</div>
+        <div class="sidebar-brand-text mx-3">SkyBlog</div>
       </a>
 
       <!-- Divider -->
@@ -51,9 +51,9 @@
       <hr class="sidebar-divider">
 
       <!-- Heading -->
-      <div class="sidebar-heading">
+      {{-- <div class="sidebar-heading">
         Interface
-      </div>
+      </div> --}}
 
       <!-- Nav Item - Posts Collapse Menu -->
       <x-admin.sidebar.admin-sidebar-post-links></x-admin.sidebar.admin-sidebar-post-links>

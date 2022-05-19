@@ -45,7 +45,7 @@
                       <td>{{$user->id}}</td>
                       <td><a href="{{route('user.profile.show', ['user' => $user])}}">{{$user->username}}</a></td>
                       <td>{{$user->name}}</td>
-                      <td><img src="@if ($user->avatar == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else data:image/png;base64,{{$user->avatar}} @endif" alt="" width=60 height=60></td>
+                      <td><img src="@if ($user->avatar == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else {{$user->avatar}} @endif" alt="" width=60 height=60></td>
                       <td>{{$user->email}}</td>
                       <td>{{$user->created_at->diffForHumans()}}</td>
                       <td>{{$user->updated_at->diffForHumans()}}</td>

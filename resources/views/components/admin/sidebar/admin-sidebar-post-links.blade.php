@@ -8,7 +8,9 @@
         {{-- <h6 class="collapse-header">Posts</h6> --}}
         <a class="collapse-item" href="{{ route('posts.create') }}">Create a Post</a>
         <a class="collapse-item" href="{{ route('posts.index') }}">View All Posts</a>
+        @if (auth()->user()->userHasRole('Admin'))
         <a class="collapse-item" href="{{route('comments.index')}}">All Comments</a>
+        @endif
       </div>
     </div>
 </li>
