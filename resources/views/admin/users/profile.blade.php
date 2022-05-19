@@ -10,7 +10,7 @@
 
          
                     <div class="mb-3">
-                        <img class="img-profile rounded-circle" src="{{$user->avatar}}" alt="" width="60" height="60">
+                        <img class="img-profile rounded-circle" src="data:image/png;base64,{{$user->avatar}}" alt="" width="60" height="60">
                     </div>
                     <div class="form-group">
                         <label for="avatar">Profile Image</label><br>

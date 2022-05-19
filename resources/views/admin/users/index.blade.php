@@ -45,7 +45,7 @@
                       <td>{{$user->id}}</td>
                       <td><a href="{{route('user.profile.show', ['user' => $user])}}">{{$user->username}}</a></td>
                       <td>{{$user->name}}</td>
-                      <td><img src="{{$user->avatar}}" alt="" width=60 height=60></td>
+                      <td><img src="data:image/png;base64,{{$user->avatar}}" alt="" width=60 height=60></td>
                       <td>{{$user->email}}</td>
                       <td>{{$user->created_at->diffForHumans()}}</td>
                       <td>{{$user->updated_at->diffForHumans()}}</td>

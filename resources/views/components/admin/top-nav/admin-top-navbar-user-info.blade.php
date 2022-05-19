@@ -5,7 +5,7 @@
                 {{auth()->user()->username}}
             @endif
         </span>
-        <img class="img-profile rounded-circle" src="{{auth()->user()->avatar}}">
+        <img class="img-profile rounded-circle" src="data:image/png;base64,{{auth()->user()->avatar}}">
     </a>
      <!-- Dropdown - User Information -->
     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

@@ -77,11 +77,11 @@ class User extends Authenticatable
         }
     }
 
-    public function getAvatarAttribute($value){
-       if($value === NULL){
-            return asset('storage/images/blank-profile-picture.png');
-        }
+    // public function getAvatarAttribute($value){
+    //    if($value === NULL){
+    //         return asset('storage/images/blank-profile-picture.png');
+    //     }
 
-        return asset('storage/' . $value);
-    }
+    //     return asset('storage/' . $value);
+    // }
 }

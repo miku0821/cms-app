@@ -42,14 +42,15 @@ class RegisteredUserController extends Controller
         ]);
 
         if($request->hasFile('avatar')){
-            $file = $request->file('avatar');
-            $name = $file->getClientOriginalName();
+            // $file = $request->file('avatar');
+            // $name = $file->getClientOriginalName();
 
-            $request->avatar = $request->file('avatar')->storeAs('images', $name);
+            // $request->avatar = $request->file('avatar')->storeAs('images', $name);
+            $image = base64_encode(file_get_contents($request->avatar->getRealPath()));
         }
 
         $user = User::create([
-            'avatar' => $request->avatar,
+            'avatar' => $image,
             'username' => $request->username,
             'name' => $request->name,
             'email' => $request->email,
