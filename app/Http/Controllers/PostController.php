@@ -102,7 +102,7 @@ class PostController extends Controller
 
         if($categories = $request->categories){
             foreach($categories as $category){
-                $post->categories()->attach($category);
+                $post->categories()->sync($category);
             }
         }
 

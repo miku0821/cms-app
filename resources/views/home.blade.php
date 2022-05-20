@@ -47,7 +47,7 @@
         </ul> --}}
         {{$posts->links()}}
         @else
-        <div class="card mb-4 text-center border-0 bg-light">
+        <div class="card mb-4 text-center text-secondary border-0 bg-light">
             <div class="card-body">
                <h3>No Posts</h3> 
             </div>

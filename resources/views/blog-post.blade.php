@@ -14,7 +14,7 @@
     <!-- Date/Time -->
     <p>Posted on {{$post->created_at->diffForHumans()}}</p>
     @foreach($post->categories as $category)
-      <span class="bg-info text-light p-2 rounded">{{$category->name}}</span>
+      <span class="text-light p-2 rounded" style="background-color: rgb(14, 46, 87)">{{$category->name}}</span>
     @endforeach
     <hr>
 
@@ -97,10 +97,10 @@
                 @if ($reply->is_active === 1)
                   
                 <div class="nested-comment media mt-4" style="border-left: 2px solid rgb(163, 170, 184); padding-left: 10px;">
-                  <img class="d-flex mr-3 rounded-circle" src="@if ($comment->image == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else {{$reply->image}} @endif" width="50" height="50" alt="">
+                  <img class="d-flex mr-3 rounded-circle" src="@if ($reply->image == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else {{$reply->image}} @endif" width="50" height="50" alt="">
                   <div class="media-body">
                     <h5 class="mt-0">{{$reply->user->name}}
-                      <small>{{date('F j, Y, \a\t  g:i A', strtotime($comment->created_at))}}</small>
+                      <small>{{date('F j, Y, \a\t  g:i A', strtotime($reply->created_at))}}</small>
                     </h5>
                     <p>{{$reply->reply}}</p>
                   </div>

@@ -22,7 +22,9 @@
                             <th>Image</th>
                             <th>Created at</th>
                             <th>Updated at</th>
+                            @if (auth()->user()->userHasRole('Admin'))
                             <th>Comments</th>
+                            @endif
                             <th>Edit</th>
                             <th>Delete</th>
                             </tr>
@@ -35,7 +37,9 @@
                             <th>Image</th>
                             <th>Created at</th>
                             <th>Updated at</th>
+                            @if (auth()->user()->userHasRole('Admin'))
                             <th>Comments</th>
+                            @endif
                             <th>Edit</th>
                             <th>Delete</th>
                             </tr>
@@ -49,7 +53,10 @@
                                 <td> <img src="{{$post->post_image}}" alt="" width="150"> </td>
                                 <td>{{$post->created_at->diffForHumans()}}</td>
                                 <td>{{$post->updated_at->diffForHumans()}}</td>
-                                <td><a href="{{route('comments.show', $post->id)}}">View Comments</a></td>
+                                @if (auth()->user()->userHasRole('Admin'))
+                                <td><a href="{{route('comments.show', $post->id)}}">View Comments</a>
+                                </td>
+                                @endif
                                 <td>
                                     @can('view', $post)
                                     <form method="get" action="{{ route('posts.edit', ['post' => $post->id])}}">

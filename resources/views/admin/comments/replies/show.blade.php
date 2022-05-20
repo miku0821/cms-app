@@ -64,11 +64,13 @@
                                     @endcan
                                 </td>
                                 <td>
+                                    @can('view', $reply)
                                     <form method="post" action="{{route('replies.destroy', ['reply' => $reply])}}">
                                     @csrf
                                     @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                     </form>  
+                                    @endcan
                                 </td>
                             </tr>  
                             @endforeach

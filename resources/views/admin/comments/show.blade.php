@@ -18,6 +18,7 @@
                             <th>Created at</th>
                             <th>Updated at</th>
                             <th>Update</th>
+                            {{-- <th>Edit</th> --}}
                             <th>Delete</th>
                             </tr>
                         </thead>
@@ -31,6 +32,7 @@
                              <th>Created at</th>
                              <th>Updated at</th>
                              <th>Update</th>
+                             {{-- <th>Edit</th> --}}
                              <th>Delete</th>
                             </tr>
                         </tfoot>
@@ -44,8 +46,8 @@
                                 <td>{{$comment->comment}}</td>
                                 <td>{{$comment->created_at->diffForHumans()}}</td>
                                 <td>{{$comment->updated_at->diffForHumans()}}</td>
+                                {{-- @can('view', $comment) --}}
                                 <td>
-                                    @can('view', $comment)
                                     @if ($comment->is_active == 1)
                                         <form method="post" action="{{route('comments.update', ['comment' => $comment])}}">
                                         @csrf
@@ -61,8 +63,15 @@
                                             <button type="submit" class="btn btn-warning btn-sm">Approve</button>
                                         </form>  
                                     @endif
-                                    @endcan
                                 </td>
+                                {{-- @endcan --}}
+                                {{-- <td>
+                                    <form method="post" action="{{route('comments.update', ['comment' => $comment])}}">
+                                    @csrf
+                                    @method('PUT')
+                                        <button type="submit" class="btn btn-warning btn-sm">Edit</button>
+                                    </form>  
+                                </td> --}}
                                 <td>
                                     <form method="post" action="{{route('comments.destroy', ['comment' => $comment])}}">
                                     @csrf
