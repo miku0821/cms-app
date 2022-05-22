@@ -69,7 +69,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/web/comments.php'));
 
-            Route::middleware(['web', 'auth'])
+            Route::middleware(['web'])
             ->namespace($this->namespace)
             ->group(base_path('routes/web/categories.php'));
         });

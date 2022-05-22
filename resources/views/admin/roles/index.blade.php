@@ -48,15 +48,23 @@
                               @foreach ($roles as $role)
                                   <tr>
                                       <td>{{$role->id}}</td>
-                                      <td><a href="{{route('roles.edit', ['role' => $role])}}">{{$role->name}}</a></td>
-                                      <td>{{$role->slug}}</td>
-                                      <td>
-                                          <form method="post" action="{{route('roles.destroy', ['role' => $role])}}">
-                                          @csrf
-                                          @method('delete')
-                                          <button type="submit" class="btn btn-danger">Delete</button>
-                                          </form>
-                                      </td>
+                                      <td>@if ($role->name === 'Admin')
+                                            <div>{{$role->name}}</div>
+                                          @else
+                                            <a href="{{route('roles.edit', ['role' => $role])}}">{{$role->name}}</a>
+                                           @endif
+                                        </td>
+                                        <td>{{$role->slug}}</td>
+                                        <td>
+                                            <form method="post" action="{{route('roles.destroy', ['role' => $role])}}">
+                                                @csrf
+                                        @method('delete')
+                                        <button type="submit" class="btn btn-danger" 
+                                        @if ($role->name === 'Admin')
+                                            disabled
+                                        @endif>Delete</button>
+                                        </form>
+                                    </td>
                                   </tr>
                               @endforeach
                           </tbody>

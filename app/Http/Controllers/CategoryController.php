@@ -128,6 +128,7 @@ class CategoryController extends Controller
 
     public function sort(Category $category){
         $categories = Category::all();
-        return view('categorized-page', ['category' => $category, 'categories' => $categories]);
+        $posts = $category->posts()->paginate(5);
+        return view('categorized-page', ['category' => $category, 'posts' => $posts, 'categories' => $categories]);
     }
 }

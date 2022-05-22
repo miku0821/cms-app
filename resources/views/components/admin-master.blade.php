@@ -19,6 +19,16 @@
   <!-- Custom styles for this template-->
   <link href="{{ asset('css/sb-admin-2.css')}} " rel="stylesheet">
 
+  <style>
+    .img-profile{
+      border-radius: 50%;
+      width: 40px !important;
+      height: 40px !important;
+      object-fit: cover;
+
+    }
+  </style>
+
 </head>
 
 <body id="page-top">

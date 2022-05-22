@@ -1,17 +1,14 @@
 @extends('layouts.home-master')
 @section('content')
     @if (Auth::check())
-    <h1 class="my-4" style="font-family: 'Vollkorn', serif;" >Welcome, {{auth()->user()->name}}!<br>
-    </h1>
-    @else
-    <h1 class="my-4" style="font-family: 'Vollkorn', serif;" >Welcome to Skyblog!<br>
+    <h1 class="my-4" style="font-family: 'Vollkorn', serif;" >Category : {{$category->name}}<br>
     </h1>
     @endif
 
-        @if (count($category->posts) > 0)
+        @if (count($posts) > 0)
 
         <!-- Blog Post -->
-        @foreach ($category->posts as $post)
+        @foreach ($posts as $post)
 
         <div class="row">
             <div class="col-md-10">

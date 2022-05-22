@@ -22,7 +22,13 @@
             <div class="form-group">
                 @foreach ($categories as $category)
                 <div class="form-check form-check-inline">
-                    <input type="checkbox" name="categories[]" class="form-check-input" id="inlineCheckbox{{$category->id}}" value="{{$category->id}}">
+                    <input type="checkbox" name="categories[]" class="form-check-input" id="inlineCheckbox{{$category->id}}" value="{{$category->id}}"
+                    @foreach ($post->categories as $post_category)  
+                        @if ($post_category->name === $category->name)
+                        checked 
+                        @endif
+                    @endforeach
+                    >
                     <label class="form-check-label" for="inlineCheckbox{{$category->id}}">{{$category->name}}</label>
                 </div>
                 @endforeach

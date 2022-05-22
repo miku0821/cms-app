@@ -11,8 +11,8 @@
   <title>Skyblog</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="{{ secure_asset('css/app.css') }}" rel="stylesheet">
-  <link href="{{ secure_asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 
   {{-- fontawesome --}}
@@ -27,6 +27,26 @@
     a:hover{color:rgb(102, 174, 236);}
     .nav-link:hover, .navbar-brand:hover{color: whitesmoke;}
     .btn:hover{background-color: rgb(14, 46, 87) !important;}
+    .img-profile{
+      border-radius: 50%;
+      width: 40px !important;
+      height: 40px !important;
+      object-fit: cover;
+
+    }
+
+    @media screen and (min-width: 0){
+      .blog-home .category{
+        margin-top: 5% !important;
+      }
+    }
+
+    @media screen and (min-width: 1200px){
+      .blog-home .category{
+        margin-top: 0 !important;
+        float: right;
+      }
+    }
   </style>
 
 </head>
@@ -42,7 +62,7 @@
     <div class="row">
 
       <!-- Blog Entries Column -->
-      <div class="col-md-8">
+      <div class="col-md-8 content">
 
         @yield('content')
 
@@ -53,7 +73,9 @@
 
     </div>
     <!-- /.row -->
-
+    @if(isset($posts))
+      {{$posts->links()}}
+    @endif
   </div>
   <!-- /.container -->
 

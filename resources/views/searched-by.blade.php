@@ -1,11 +1,13 @@
 @extends('layouts.home-master')
 @section('content')
         @if (Auth::check())
-            <h1 class="my-4" style="font-family: 'Vollkorn', serif;" >Welcome, {{auth()->user()->name}}!<br>
-            </h1>
-        @else
-            <h1 class="my-4" style="font-family: 'Vollkorn', serif;" >Welcome to Skyblog!<br>
-            </h1>
+            @if (isset($searched_txt))
+                <h1 class="my-4" style="font-family: 'Vollkorn', serif;" >Posts containing '{{$searched_txt}}'<br>
+                </h1>  
+            @elseif(isset($author))
+                <h1 class="my-4" style="font-family: 'Vollkorn', serif;" >Posts by {{$author}}<br>
+                </h1>
+            @endif
         @endif
 
         <!-- Blog Post -->
@@ -14,7 +16,7 @@
         <div class="row blog-home">
             <div class="col-md-10">
                 <div class="card mb-5" style="box-shadow: 0 16px 8px rgb(0 0 0 / 30%);">
-                    <img class="card-img-top" src="{{$post->post_image}}" alt="" style="height: 350px; margin:auto; object-fit:cover;">
+                    <img class="card-img-top" src="{{$post->post_image}}" alt="" style="height: 350px; margin:auto;">
                     <div class="card-body">
                     <h2 class="card-title">{{$post->title}}</h2>
                     <p class="card-text">{{Str::limit($post->content, 40)}}</p>

@@ -61,7 +61,7 @@
       @if (count($comments) > 0)
       @foreach ($comments as $comment)
         <div class="media mb-4">
-          <img class="d-flex mr-3 rounded-circle" src="@if ($comment->image == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else {{$comment->image}} @endif" width="50" height="50" alt="">
+          <img class="d-flex mr-3 img-profile" src="@if ($comment->user->avatar == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else {{$comment->user->avatar}} @endif" width="50" height="50" alt="">
           <div class="media-body">
             <h5 class="mt-0">{{$comment->user->name}}
               <small>{{date('F j, Y, \a\t  g:i A', strtotime($comment->created_at))}}</small>
@@ -97,7 +97,7 @@
                 @if ($reply->is_active === 1)
                   
                 <div class="nested-comment media mt-4" style="border-left: 2px solid rgb(163, 170, 184); padding-left: 10px;">
-                  <img class="d-flex mr-3 rounded-circle" src="@if ($reply->image == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else {{$reply->image}} @endif" width="50" height="50" alt="">
+                  <img class="d-flex mr-3 img-profile" src="@if ($reply->user->avatar == NULL) https://www.business2community.com/wp-content/uploads/2017/08/blank-profile-picture-973460_640.png @else {{$reply->user->avatar}} @endif">
                   <div class="media-body">
                     <h5 class="mt-0">{{$reply->user->name}}
                       <small>{{date('F j, Y, \a\t  g:i A', strtotime($reply->created_at))}}</small>

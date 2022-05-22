@@ -1,6 +1,6 @@
 <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAutorization" aria-expanded="true" aria-controls="collapseAuthorization">
-      <i class="fas fa-fw fa-cog"></i>
+      <i class="fa-solid fa-key"></i>
       <span>Authorization</span>
     </a>
     <div id="collapseAutorization" class="collapse" aria-labelledby="headingAuthorization" data-parent="#accordionSidebar">

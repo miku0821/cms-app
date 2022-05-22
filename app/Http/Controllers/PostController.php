@@ -59,9 +59,7 @@ class PostController extends Controller
 
 
         if($categories = $request->categories){
-            foreach($categories as $category){
-                $post->categories()->attach($category);
-            }
+                $post->categories()->attach($categories);
         }
 
 
@@ -90,7 +88,7 @@ class PostController extends Controller
             $path = Storage::disk('s3')->putFile('post_image', $image, 'public');
             $validated['post_image'] = Storage::disk('s3')->url($path);
         }else{
-            $validated['post_image'] = NULL;
+            $validated['post_image'] = $post->post_image;
         }
 
         $post->title = $request->title;
@@ -100,11 +98,9 @@ class PostController extends Controller
 
         $post->save();
 
-        if($categories = $request->categories){
-            foreach($categories as $category){
-                $post->categories()->sync($category);
-            }
-        }
+        // if($categories = $request->categories){
+                $post->categories()->sync($request->categories);
+        // }
 
 
         $request->session()->flash('post-update-status', 'The post waws successfully updated');
@@ -134,7 +130,7 @@ class PostController extends Controller
 
         $categories = Category::all();
 
-        return view('home', ['posts' => $posts, 'categories' => $categories]);
+        return view('searched-by', ['posts' => $posts, 'categories' => $categories, 'searched_txt' => $searched_txt]);
     }
 
 
@@ -147,16 +143,11 @@ class PostController extends Controller
 
         $user_ids = User::where('name', 'like', "%".$author."%")->get('id');
 
-        if(count($user_ids) >= 1){
                 $posts = Post::whereIn('user_id', $user_ids)
                         ->paginate(5);
-        }else{
-            $posts = Post::where('user_id', $user_ids)
-            ->paginate(5);
-        }
       
         $categories = Category::all();
 
-        return view('home', ['posts' => $posts, 'categories' => $categories]);
+        return view('searched-by', ['posts' => $posts, 'categories' => $categories, 'author' => $author]);
     }
 }

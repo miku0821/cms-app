@@ -37,7 +37,8 @@ class HomeController extends Controller
         $posts = Post::where('user_id', $author)
             ->paginate(5);
         $categories = Category::all();
+        $author = User::find($author)->username;
 
-        return view('home', ['posts' => $posts, 'categories' => $categories]);
+        return view('searched-by', ['posts' => $posts, 'categories' => $categories, 'author' => $author]);
     }
 }
