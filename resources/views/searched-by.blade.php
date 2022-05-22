@@ -16,7 +16,7 @@
         <div class="row blog-home">
             <div class="col-md-10">
                 <div class="card mb-5" style="box-shadow: 0 16px 8px rgb(0 0 0 / 30%);">
-                    <img class="card-img-top" src="{{$post->post_image}}" alt="" style="height: 350px; margin:auto;">
+                    <img class="card-img-top" src="{{$post->post_image}}" alt="" style="height: 350px; margin:auto; object-fit:cover;">
                     <div class="card-body">
                     <h2 class="card-title">{{$post->title}}</h2>
                     <p class="card-text">{{Str::limit($post->content, 40)}}</p>
